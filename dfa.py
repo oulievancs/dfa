@@ -7,8 +7,7 @@
 import sys, traceback
 
 try:
-	f=open('dfa.txt', 'r')
-	if f != None:
+	with open('dfa.txt', 'r') as f:
 		count_states = int(f.readline().rstrip('\n'))
 		alphabet = f.readline().rstrip('\n').split(' ')
 		start_state = f.readline().rstrip('\n')
@@ -18,11 +17,18 @@ try:
 						# dictionary uses the id of state for primary key.
 		#state={"n" : [[<input> <next_state>] [<input> <next_state>]]}
 		
+		
 		#Read line-line the file except the \n character.
 		line = f.readline().rstrip('\n')
 		while line != None and line != '':
-			#Wrile reading -> building the automata.
+			#While reading -> building the automata.
 			cur = line.split(' ')
+			
+			#Check if an input isn't into the alphabet.
+			if not (cur[1] in alphabet):
+				print('An alphabet problem accurred. You are referenced to an not alphabet symbol.')
+				sys.exit()
+			
 			if not (cur[0] in states):
 				states[cur[0]] = []
 			
@@ -61,9 +67,8 @@ try:
 				print("\n---> RESULT: OK\n\n")
 			else:
 				print("\n---> RESULT: NOT OK\n\n")
-						
-	else:
-		print ("You must provide a file DFA description.")
+		
+
 except TypeError as e:
 	print("An error accurred. Descr: " + str(e))
 	
@@ -73,6 +78,7 @@ except TypeError as e:
 
 except IOError as e:
 	print("An error accurred on file opening. Descr: " + str(e))
+	print ("You must provide a file DFA description.")
 	
 	exc_type, exc_value, exc_traceback = sys.exc_info()
 	print ("*** print_tb:")
