@@ -56,11 +56,17 @@ try:
 					wrong = True
 					break
 				
+				found = False
 				#Get to next state.
 				for j in states[state]:
 					if j[0] == user_char:
 						state = j[1]
+						
+						found = True
 						break
+				
+				if not found:
+					break
 			
 			#Prints the result.
 			if state in final_states and not wrong:
