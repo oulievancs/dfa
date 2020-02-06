@@ -36,9 +36,18 @@ try:
 			
 			line = f.readline().rstrip('\n')
 		
+		print("======TRUETH TABLE========\n")
+		print("State\t\tInput\t\tNext State\n")
+		
+		
+		for key, s in states.items():
+			for s1 in s:
+				print (str(key) + "\t\t" + s1[0] + "\t\t" + s1[1])
+		
+		print ("==========================\n\n\n")
 		while True:
 			#Wait to get an input from user.
-			user = input('##Give me an Input <exit()> for exit.:    ')
+			user = str(input('##Give me an Input <exit()> for exit.:    '))
 			
 			#Exit if he wants.
 			if user == 'exit()':
